@@ -1,8 +1,8 @@
 #ifndef ARIA_LIB_ARGUMENT_H
 #define ARIA_LIB_ARGUMENT_H
 
-#define ARG_OPT_LIMIT 100
-#define ARG_POS_LIMIT 100
+#define ARG_OPT_LIMIT 50
+#define ARG_POS_LIMIT 50
 
 typedef enum {
 	ARGT_INT,

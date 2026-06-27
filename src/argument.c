@@ -4,12 +4,26 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * Initializes the argument struct. Required to use argument parsing.
+ *
+ * @param args A pointer to the argument struct.
+ */
 void arg_init(Arguments *args) {
 	args->opt_count = 0;
 	args->pos_count = 0;
 }
 
-void arg_add(Arguments *args, const char *abbr_flag, const char *flag, ArgumentType type, void *val) {
+/**
+ * Adds a new argument to the argument struct.
+ *
+ * @param args A pointer to the argument struct.
+ * @param abbr_flag The abbreviated name of the flag.
+ * @param flag The full name of the flag.
+ * @param type The type of value this argument holds.
+ * @param val A pointer to the value itself.
+ */
+void arg_add(Arguments *args, const char *abbr_flag, const char *flag, const ArgumentType type, void *val) {
 	if (args->opt_count >= ARG_OPT_LIMIT) {
 		fprintf(stderr, "Argument parsing failed: Too many options.");
 		exit(1);
@@ -21,6 +35,13 @@ void arg_add(Arguments *args, const char *abbr_flag, const char *flag, ArgumentT
 	opt->val = val;
 }
 
+/**
+ * Parses the arguments from the command line to the argument struct.
+ *
+ * @param args A pointer to the argument struct.
+ * @param argc The argument count from the main function.
+ * @param argv The argument vector from the main function.
+ */
 void arg_parse(Arguments *args, const int argc, char *argv[]) {
 	for (int i = 1; i < argc; i++) {
 		char *arg = argv[i];
@@ -56,6 +77,11 @@ void arg_parse(Arguments *args, const int argc, char *argv[]) {
 	}
 }
 
+/**
+ * Print the usage of saved arguments in the argument struct.
+ *
+ * @param args A pointer to the argument struct.
+ */
 void arg_print(const Arguments *args) {
 	printf("Usage:\n");
 	for (int i = 0; i < args->opt_count; i++) {
@@ -65,6 +91,11 @@ void arg_print(const Arguments *args) {
 	}
 }
 
+/**
+ * Free the argument struct.
+ *
+ * @param args A pointer to the argument struct.
+ */
 void arg_free(Arguments *args) {
 	for (int i = 0; i < args->opt_count; i++) {
 		ArgumentOption *opt = &args->opt[i];
