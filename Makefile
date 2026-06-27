@@ -1,16 +1,17 @@
-NAME = arialib.a
+NAME = libaria.a
 
 SRC = src/argument.c
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -I. -Ofast -march=native -ffast-math -flto
-AR = llvm-ar-12 rcs
-RANLIB = llvm-ranlib-12
+CFLAGS = -Wall -Werror -Wextra -I. -O3 -march=native -ffast-math -flto
+AR = $(shell $(CC) -print-prog-name=llvm-ar)
+ARFLAGS = rcs
+RANLIB = $(shell $(CC) -print-prog-name=llvm-ranlib)
 
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
-	$(AR) $@ $^
+	$(AR) $(ARFLAGS) $@ $^
 	$(RANLIB) $(NAME)
 
 %.o: %.c

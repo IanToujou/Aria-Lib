@@ -24,4 +24,10 @@ typedef struct {
 	int pos_count;
 } Arguments;
 
+void arg_init(Arguments *args);
+void arg_add(Arguments *args, const char *abbr_flag, const char *flag, ArgumentType type, void *val);
+void arg_parse(Arguments *args, int argc, char *argv[]);
+void arg_print(const Arguments *args);
+void arg_free(Arguments *args);
+
 #endif
